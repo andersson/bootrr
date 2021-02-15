@@ -16,6 +16,7 @@ HELPERS := assert_file_is_empty \
 	   assert_sysfs_attr_present \
 	   bootrr \
 	   bootrr-auto \
+	   bootrr-generic-tests \
 	   ensure_lib_firmware \
 	   rproc-start \
 	   rproc-stop \
@@ -37,11 +38,11 @@ BOARDS := arrow,apq8096-db820c \
 	  thundercomm,db845c
 
 define add-scripts
-$(DESTDIR)$(prefix)/bin/$2: $1/$2
+$(DESTDIR)$(prefix)/$1/$2: $1/$2
 	@echo "INSTALL $$<"
 	@install -D -m 755 $$< $$@
 
-all-install += $(DESTDIR)$(prefix)/bin/$2
+all-install += $(DESTDIR)$(prefix)/$1/$2
 endef
 
 $(foreach v,${BOARDS},$(eval $(call add-scripts,boards,$v)))
